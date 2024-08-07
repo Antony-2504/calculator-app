@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "calculator-chart.fullname" . }}
+  labels:
+    {{- include "calculator-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 3000
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    {{- include "calculator-chart.selectorLabels" . | nindent 4 }}
